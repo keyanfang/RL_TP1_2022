@@ -9,7 +9,7 @@ np.random.seed(2)
 
 N_STATES = 6
 ACTIONS = ["left", "right"]
-EPSILON = 0.5
+# EPSILON = 0.5
 ALPHA = 0.1
 GAMMA = 0.9
 MAX_EPISODE = 10
@@ -25,7 +25,7 @@ def build_q_table(n_states, actions):
     return table
 
 
-def choose_action(state, table):
+def choose_action(state, table, EPSILON):
     actions = table.iloc[state, :]
     if np.random.uniform() > EPSILON or actions.all() == 0:
         action = np.random.choice(ACTIONS)
@@ -57,6 +57,9 @@ def print_env(S, episode, step_counter):
     if S == 'terminal':
         print("\n")
         print('Episode %s: total_steps = %s' % (episode + 1, step_counter))
+        # interaction = 'Episode %s: total_steps = %s' % (episode + 1, step_counter)
+        # print('\r{}'.format(interaction), end='')
+        # print('\r                                ', end='')
     else:
         env_list[S] = 'o'
         interaction = ''.join(env_list)
@@ -64,7 +67,7 @@ def print_env(S, episode, step_counter):
         time.sleep(FRESH_TIME)
 
 
-def q_learning():
+def q_learning(EPSILON):
     q_table = build_q_table(N_STATES, ACTIONS)
     for episode in range(MAX_EPISODE):
         is_terminated = False
@@ -72,7 +75,7 @@ def q_learning():
         S = 2
         print_env(S, episode, step_counter)
         while not is_terminated:
-            A = choose_action(S, q_table)
+            A = choose_action(S, q_table,EPSILON)
             S_, r = env_feedback(S, A)
             q_predict = q_table.loc[S, A]
             if S_ == "terminal":
@@ -86,7 +89,16 @@ def q_learning():
             print_env(S, episode, step_counter)
     return q_table
 
+def different_epsilon_result():
+    EPSILON = 0.1
+    while EPSILON<1:
+        print("epsilon=", EPSILON)
+        q_table = q_learning(EPSILON)
+        print(q_table)
+        EPSILON = EPSILON+0.1
 
 if __name__ == "__main__":
-    q_table = q_learning()
-    print(q_table)
+    # q_table = q_learning()
+    # print(q_table)
+    different_epsilon_result()
+

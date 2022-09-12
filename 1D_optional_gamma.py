@@ -1,4 +1,4 @@
-#reference: https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/blob/master/contents/1_command_line_reinforcement_learning/treasure_on_right.py
+# reference: https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/blob/master/contents/1_command_line_reinforcement_learning/treasure_on_right.py
 
 
 import numpy as np
@@ -11,16 +11,16 @@ N_STATES = 6
 ACTIONS = ["left", "right"]
 EPSILON = 0.5
 ALPHA = 0.1
-GAMMA = 0.9
+# GAMMA = 0.9
 MAX_EPISODE = 10
 FRESH_TIME = 0.3
 
 
 def build_q_table(n_states, actions):
     table = pd.DataFrame(
-    np.zeros((n_states, len(actions))),
-    columns = actions,
-)
+        np.zeros((n_states, len(actions))),
+        columns=actions,
+    )
 
     return table
 
@@ -36,7 +36,7 @@ def choose_action(state, table):
 
 def env_feedback(S, A):
     if A == "right":
-        if S == N_STATES-1:
+        if S == N_STATES - 1:
             S_ = "terminal"
             reward = 1
         else:
@@ -53,10 +53,13 @@ def env_feedback(S, A):
 
 
 def print_env(S, episode, step_counter):
-    env_list = ['X']+['-'] * (N_STATES - 2) + ['G']
+    env_list = ['X'] + ['-'] * (N_STATES - 2) + ['G']
     if S == 'terminal':
         print("\n")
         print('Episode %s: total_steps = %s' % (episode + 1, step_counter))
+        # interaction = 'Episode %s: total_steps = %s' % (episode + 1, step_counter)
+        # print('\r{}'.format(interaction), end='')
+        # print('\r                                ', end='')
     else:
         env_list[S] = 'o'
         interaction = ''.join(env_list)
@@ -64,7 +67,7 @@ def print_env(S, episode, step_counter):
         time.sleep(FRESH_TIME)
 
 
-def q_learning():
+def q_learning(GAMMA):
     q_table = build_q_table(N_STATES, ACTIONS)
     for episode in range(MAX_EPISODE):
         is_terminated = False
@@ -87,6 +90,20 @@ def q_learning():
     return q_table
 
 
+def different_gamma_result():
+    GAMMA = 0.1
+    while GAMMA < 1:
+        print("gamma=", GAMMA)
+        q_table = q_learning(GAMMA)
+        print(q_table)
+        GAMMA = GAMMA + 0.1
+
+
 if __name__ == "__main__":
-    q_table = q_learning()
-    print(q_table)
+    # q_table = q_learning()
+    # print(q_table)
+    different_gamma_result()
+
+# gamma est un facteur qui prend en compte les récompenses futures.
+# Si le gamma est trop petit, la récompense positive au point final ne peut pas "se propager",
+# c'est-à-dire que le robot risque de ne pas apprendre une stratégie pour atteindre le point final.

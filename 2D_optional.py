@@ -13,10 +13,10 @@ possibility=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
 WORLD_R = 4
 WORLD_C = 4
 ACTIONS = ['up','down','left', 'right']
-EPSILON = np.random.choice(possibility)
-ALPHA = np.random.choice(possibility)
-GAMMA = np.random.choice(possibility)
-MAX_EPISODES = 100
+EPSILON = 0.9
+ALPHA = 0.1
+GAMMA = 0.9
+MAX_EPISODES = 75
 FRESH_TIME = 0.1
 end_pos_x = 3
 

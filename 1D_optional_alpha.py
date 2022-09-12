@@ -10,7 +10,7 @@ np.random.seed(2)
 N_STATES = 6
 ACTIONS = ["left", "right"]
 EPSILON = 0.5
-ALPHA = 0.1
+# ALPHA = 0.1
 GAMMA = 0.9
 MAX_EPISODE = 10
 FRESH_TIME = 0.3
@@ -57,6 +57,9 @@ def print_env(S, episode, step_counter):
     if S == 'terminal':
         print("\n")
         print('Episode %s: total_steps = %s' % (episode + 1, step_counter))
+        # interaction = 'Episode %s: total_steps = %s' % (episode + 1, step_counter)
+        # print('\r{}'.format(interaction), end='')
+        # print('\r                                ', end='')
     else:
         env_list[S] = 'o'
         interaction = ''.join(env_list)
@@ -64,7 +67,7 @@ def print_env(S, episode, step_counter):
         time.sleep(FRESH_TIME)
 
 
-def q_learning():
+def q_learning(ALPHA):
     q_table = build_q_table(N_STATES, ACTIONS)
     for episode in range(MAX_EPISODE):
         is_terminated = False
@@ -86,7 +89,18 @@ def q_learning():
             print_env(S, episode, step_counter)
     return q_table
 
+def different_alpha_result():
+    ALPHA = 0.1
+    while ALPHA<1:
+        print("alpha=", ALPHA)
+        q_table = q_learning(ALPHA)
+        print(q_table)
+        ALPHA = ALPHA+0.1
 
 if __name__ == "__main__":
-    q_table = q_learning()
-    print(q_table)
+    # q_table = q_learning()
+    # print(q_table)
+    different_alpha_result()
+
+#alpha est un montant qui pondère le résultat d'apprentissage précédent et le résultat d'apprentissage actuel.
+#Si l'alpha est trop bas, le robot ne se sou ciera que des connaissances antérieures et ne pourra pas accumuler de nouvelles récompenses.
