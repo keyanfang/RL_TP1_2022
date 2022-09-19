@@ -1,7 +1,7 @@
 #reference: https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/tree/master/contents/2_Q_Learning_maze
 #reference: https://blog.csdn.net/qq_41314151/article/details/100045143
 
-
+import tensorflow as ts
 import numpy as np
 import pandas as pd
 import os
@@ -13,9 +13,9 @@ possibility=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
 WORLD_R = 4
 WORLD_C = 4
 ACTIONS = ['up','down','left', 'right']
-EPSILON = 0.9
-ALPHA = 0.1
-GAMMA = 0.9
+EPSILON = np.random.choice(possibility)
+ALPHA = np.random.choice(possibility)
+GAMMA = np.random.choice(possibility)
 MAX_EPISODES = 75
 FRESH_TIME = 0.1
 end_pos_x = 3
