@@ -3,7 +3,7 @@ import numpy as np
 
 
 # gym创建冰湖环境
-env = gym.make('FrozenLake-v1')
+env = gym.make('FrozenLake-v1', render_mode='human',desc=None, map_name="4x4", is_slippery=True)
 # 初始化Q表格，矩阵维度为【S,A】，即状态数*动作数
 Q_all = np.zeros([env.observation_space.n, env.action_space.n])
 # 设置参数,

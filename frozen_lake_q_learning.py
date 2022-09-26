@@ -2,7 +2,7 @@ import gym
 import numpy as np
 import time, pickle, os
 
-env = gym.make('FrozenLake-v1')
+env = gym.make('FrozenLake-v1', render_mode='human',desc=None, map_name="4x4", is_slippery=True)
 
 epsilon = 0.9
 total_episodes = 10000
