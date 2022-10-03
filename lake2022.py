@@ -57,6 +57,7 @@ def test_policy(policy, run_time=100):
         while True:
             env.render()  # 环境可视化
             action = int(policy[observation])
+            print('action', action)
             observation, r, done, prob = env.step(action)  # 分别是0:当前状态 1：reward 2：donw 3:prob
             if r > 0:
                 success += 1

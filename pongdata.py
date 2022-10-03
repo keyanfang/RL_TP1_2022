@@ -1,5 +1,5 @@
 import pickle
-
+import ale_py
 import gym
 import imageio
 import numpy as np
@@ -24,7 +24,7 @@ def mycallback(obs_t, action, rew, done):
     data[b'lable'].append(action)
 
 def init():
-    env = gym.make('Pong-v4')
+    env = gym.make("ALE/Pong-v5", render_mode='rgb_array')
     env.reset()
     restraint=0
     while True:

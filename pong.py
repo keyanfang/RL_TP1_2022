@@ -1,6 +1,7 @@
 import numpy as np
 import _pickle as pickle
 import gym
+import ale_py
 
 # hyperparameters
 from ply.cpp import xrange
@@ -68,7 +69,7 @@ def policy_backward(eph, epdlogp):
     return {'W1': dW1, 'W2': dW2}
 
 
-env = gym.make("Pong-v4")
+env = gym.make("ALE/Pong-v5",render_mode='rgb_array')
 observation = env.reset()
 prev_x = None  # used in computing the difference frame
 xs, hs, dlogps, drs = [], [], [], []
